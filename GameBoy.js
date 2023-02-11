@@ -20,10 +20,10 @@ var GameBoy = function(rom){
    this.activeRomBank = 1;
    
    switch(this.rom8bit[0x0149]){
-      case 0: this.ramSpace = 512; this.ramBanks = 1; break;
-      case 1: this.ramSpace = 2048; this.ramBanks = 1; break;
-      case 2: this.ramSpace = 8192; this.ramBanks = 1; break;
-      case 3: this.ramSpace = 32768; this.ramBanks = 4;break;
+      case 0: this.ramSpace = 1012; this.ramBanks = 1; break;
+      case 1: this.ramSpace = 4048; this.ramBanks = 1; break;
+      case 2: this.ramSpace = 12192; this.ramBanks = 1; break;
+      case 3: this.ramSpace = 34768; this.ramBanks = 4;break;
       default: this.ramSpace = 0;
    }
    this.activeRamBank = 0;
@@ -102,7 +102,7 @@ var GameBoy = function(rom){
    
    this.lcdstat = 0;
    this.paused = false;
-   this.fps = 0;
+   this.fps = 60;
    
    this.keys = 255;
    
@@ -156,7 +156,7 @@ var GameBoy = function(rom){
       }
       
       this.lcdstat &= ~3;
-      if(this.vstatus < 144){
+      if(this.vstatus < 60){
          if(this.hstatus == 0){
             this.lcdstat |= 2;
          }else if(this.hstatus == 1){
@@ -168,9 +168,9 @@ var GameBoy = function(rom){
          }
       }else{
          
-         if(this.vstatus == 144 && this.hstatus == 0){
+         if(this.vstatus == 60 && this.hstatus == 0){
             this.fps++;
-            if(this.fps == 120){
+            if(this.fps == 60){
                if(this.onFPS != null) this.onFPS("FPS: "+Math.round(1000/((new Date()) - this.fpstime)));
                this.fps = 0;
             }
@@ -200,19 +200,19 @@ var GameBoy = function(rom){
                this.clockTimer -= 1024;
             }
          }else if(this.timerControl & 3 == 1){
-            while(this.clockTimer >= 16){
-               this.timerAddOne();
-               this.clockTimer -= 16;
-            }
-         }else if(this.timerControl & 3 == 2){
             while(this.clockTimer >= 64){
                this.timerAddOne();
                this.clockTimer -= 64;
             }
-         }else if(this.timerControl & 3 == 3){
-            while(this.clockTimer >= 256){
+         }else if(this.timerControl & 3 == 2){
+            while(this.clockTimer >= 128){
                this.timerAddOne();
-               this.clockTimer -= 256;
+               this.clockTimer -= 128;
+            }
+         }else if(this.timerControl & 3 == 3){
+            while(this.clockTimer >= 512){
+               this.timerAddOne();
+               this.clockTimer -= 512;
             }
          }
       }
