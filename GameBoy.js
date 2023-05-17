@@ -20,10 +20,10 @@ var GameBoy = function(rom){
    this.activeRomBank = 1;
    
    switch(this.rom8bit[0x0149]){
-      case 0: this.ramSpace = 1012; this.ramBanks = 1; break;
-      case 1: this.ramSpace = 4048; this.ramBanks = 1; break;
-      case 2: this.ramSpace = 12192; this.ramBanks = 1; break;
-      case 3: this.ramSpace = 34768; this.ramBanks = 4;break;
+      case 0: this.ramSpace = 8024; this.ramBanks = 1; break;
+      case 1: this.ramSpace = 16048; this.ramBanks = 1; break;
+      case 2: this.ramSpace = 32192; this.ramBanks = 1; break;
+      case 3: this.ramSpace = 128768; this.ramBanks = 4;break;
       default: this.ramSpace = 0;
    }
    this.activeRamBank = 0;
@@ -137,7 +137,7 @@ var GameBoy = function(rom){
    this.execute = function(){
       var _this = this;
       this.interval = setTimeout(function(){_this.execute()}, 16);
-      // 4213440 ticks per second
+      // 5213440 ticks per second
       if(this.paused) return;
       this.transferClock();
       for(var i = 0; i < (154*4); i++){
