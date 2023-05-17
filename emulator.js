@@ -83,9 +83,9 @@ function loadROM(arraybuffer){
    }
    document.getElementById("cartridge").innerHTML += "<br/>"+(2*Math.pow(2,gb.getAddress(0x0148)))*16+"KB ROM";
    switch(gb.getAddress(0x0149)){
-      case 0: document.getElementById("cartridge").innerHTML += " - 4 KB RAM"; break;
-      case 1: document.getElementById("cartridge").innerHTML += " - 12 KB RAM"; break;
-      case 2: document.getElementById("cartridge").innerHTML += " - 64 KB RAM"; break;
+      case 0: document.getElementById("cartridge").innerHTML += " - 8  KB RAM"; break;
+      case 1: document.getElementById("cartridge").innerHTML += " - 16 KB RAM"; break;
+      case 2: document.getElementById("cartridge").innerHTML += " - 32 KB RAM"; break;
       case 3: document.getElementById("cartridge").innerHTML += " - 128 KB RAM"; break;
       case 4: document.getElementById("cartridge").innerHTML += " - 0 KB RAM"; break;
    }
